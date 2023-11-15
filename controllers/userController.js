@@ -61,7 +61,7 @@ module.exports = {
         return res.status(404).json({ message: 'No user with that ID' });
       }
 
-      await Thought.deleteMany({ _id: { $in: user.thoughts } }); //is this the user id or thought id?
+      await Thought.deleteMany({ _id: { $in: user.thoughts } }); // thought id
       res.json({ message: 'User and associated thoughts deleted!' })
     } catch (err) {
       res.status(500).json(err);
@@ -90,7 +90,7 @@ module.exports = {
     try {
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
-        { $pull: { friends: { _id: req.params.friendId } } }, //is this the right property?
+        { $pull: { friends: { _id: req.params.friendId } } }, 
         { runValidators: true, new: true }
       );
 

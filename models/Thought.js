@@ -17,7 +17,8 @@ const reactionSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (date) => { //don't know how to format the timestamp
+        get: (date) => { 
+          return date.toLocaleDateString();
         }
       },
   });
@@ -33,7 +34,8 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      get: (date) => { //don't know how to format the timestamp
+      get: (date) => { 
+        return date.toLocaleDateString();
       }
     },
     username: {
