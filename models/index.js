@@ -1,3 +1,3 @@
-const Blank = require('./Blank');
+const User = require('./User');
 
 module.exports = { User, Application, Tag }
