@@ -21,7 +21,12 @@ const reactionSchema = new Schema({
           return date.toLocaleDateString();
         }
       },
-  });
+  }, 
+  { 
+    toJSON: {getters: true},
+    id: false
+  }
+  );
 
 const thoughtSchema = new Schema(
   {
