@@ -14,7 +14,8 @@ module.exports = {
     try {
       const user = await User.findOne({ _id: req.params.userId })
         .select('-__v')
-        .populate({ path: 'thoughts', select: '-__v'}, { path: 'friends', select: '-__v'} ); //how to do more than one?
+        .populate({ path: 'thoughts', select: '-__v'}) 
+        .populate({ path: 'friends', select: '-__v'});
 
       if (!user) {
         return res.status(404).json({ message: 'No user with that ID' });
@@ -72,7 +73,7 @@ module.exports = {
     try {
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
-        { $addToSet: { friends: req.body } },
+        { $addToSet: { friends: req.params.friendId } },
         { runValidators: true, new: true }
       );
 
@@ -90,7 +91,7 @@ module.exports = {
     try {
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
-        { $pull: { friends: { _id: req.params.friendId } } }, 
+        { $pull: { friends: req.params.friendId } }, 
         { runValidators: true, new: true }
       );
 
