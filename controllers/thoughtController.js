@@ -35,7 +35,7 @@ module.exports = {
                 return res.status(404).json({ message: 'Thought created, but no user with that ID' });
             }
 
-            res.json('Created the thought!', user)
+            res.json({ message: 'Created the thought!', user });
         } catch (err) {
             res.status(500).json(err)
         }
@@ -87,7 +87,7 @@ module.exports = {
             const thought = await Thought.findOneAndUpdate(
               { _id: req.params.thoughtId },
               { $addToSet: { reactions: req.body } },
-              { runValidators: true, new: true }
+              { new: true }
             );
       
             if (!thought) {
@@ -103,8 +103,8 @@ module.exports = {
         try {
             const thought = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
-                { $pull: { reactions: { reactionId: req.body } } },
-                { runValidators: true, new: true }
+                { $pull: { reactions: { _id: req.body._id } } },
+                { new: true }
               );
         
               if (!thought) {
